@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FinaMo — Financial Momentum for MSMEs</title>
+  <meta name="description" content="FinaMo provides affordable, professional, tech-enabled accounting and financial management services for Nigerian MSMEs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --gold: #caa023;
+    --green: #2e7d32;
+    --black: #0f0f10;
+    --deep: #121214;
+    --gray: #9aa3ad;
+    --light: #f5f6f8;
+    --white: #ffffff;
+    --muted: #d9dde2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--light);
+    background: linear-gradient(180deg, #0b1f12, #0f0f10);
+  }
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 24px; }
+  .row { display: flex; gap: 16px; }
+  .row.middle { align-items: center; }
+  .row.between { justify-content: space-between; }
+  .grid { display: grid; gap: 24px; }
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .grid.four { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 960px) {
+    .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+  }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(18, 18, 20, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(202, 160, 35, 0.2);
+  }
+  .brand { text-decoration: none; color: inherit; gap: 12px; }
+  .brand-logo { width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
+  .brand-name { font-weight: 700; font-size: 20px; letter-spacing: 0.3px; }
+  .brand-name-accent { color: var(--green); }
+  .brand-tagline { display: block; font-size: 12px; color: var(--gray); }
+  .nav-toggle { display: none; font-size: 22px; background: transparent; color: var(--light); border: none; }
+  .main-nav { display: flex; gap: 18px; align-items: center; }
+  .main-nav a { color: var(--light); text-decoration: none; font-weight: 500; padding: 10px 12px; border-radius: 8px; }
+  .main-nav a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  @media (max-width: 960px) {
+    .nav-toggle { display: inline-block; }
+    .main-nav { display: none; position: absolute; top: 64px; right: 16px; flex-direction: column; background: var(--deep); border: 1px solid rgba(202,160,35,0.2); padding: 12px; border-radius: 12px; }
+    .main-nav.open { display: flex; }
+  }
+  .btn { display: inline-block; padding: 12px 18px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+  .btn-primary { background: linear-gradient(90deg, var(--green), #3aa24a); color: var(--white); }
+  .btn-outline { color: var(--gold); border: 1px solid var(--gold); background: transparent; }
+  .hero { position: relative; min-height: 64vh; display: grid; align-items: center; }
+  .hero-media { position: absolute; inset: 0; background-size: cover; background-position: center; filter: grayscale(20%) brightness(0.6); }
+  .hero-overlay { position: absolute; inset: 0; background: radial-gradient(1200px 600px at 20% 20%, rgba(202,160,35,0.3), transparent), linear-gradient(180deg, rgba(18,18,20,0.7), rgba(18,18,20,0.9)); }
+  .hero-content { position: relative; z-index: 1; text-align: left; padding: 72px 24px; }
+  .hero h1 { font-size: 42px; margin: 0 0 12px; color: var(--white); }
+  .hero p { font-size: 18px; color: var(--muted); margin: 0 0 24px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .section { padding: 64px 0; }
+  .section.alt { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .section h2 { color: var(--white); font-size: 28px; margin: 0 0 16px; }
+  .section p, .section li { color: var(--muted); }
+  .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .badge { padding: 8px 12px; border-radius: 999px; background: rgba(202,160,35,0.12); color: var(--gold); font-weight: 600; }
+  .about-media img, .services-media img, .impact-media img { width: 100%; height: 100%; max-height: 360px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+  .cards { gap: 20px; }
+  .card { background: rgba(18,18,20,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; }
+  .card h3 { margin: 0 0 8px; color: var(--white); }
+  .card.icon .icon-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); margin-bottom: 10px; box-shadow: 0 0 0 6px rgba(202,160,35,0.12); }
+  .list ul { margin: 0; padding-left: 18px; }
+  .list li { margin: 8px 0; }
+  .pricing { gap: 20px; }
+  .price-card { background: rgba(18,18,20,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; }
+  .price-card .price { font-size: 20px; color: var(--gold); font-weight: 700; }
+  .price-card.featured { border-color: rgba(46,125,50,0.4); box-shadow: 0 0 0 2px rgba(46,125,50,0.25) inset; }
+  .checklist { padding-left: 18px; }
+  .checklist li { margin: 8px 0; }
+  .revenue-note { margin-top: 18px; padding: 16px; border-radius: 12px; background: rgba(202,160,35,0.08); color: var(--muted); }
+  .cta .contact-form { display: grid; gap: 14px; max-width: 760px; }
+  .contact-form input, .contact-form textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(18,18,20,0.7); color: var(--light); }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--gray); }
+  .site-link { margin-top: 14px; color: var(--gray); }
+  .site-link a { color: var(--green); text-decoration: none; }
+  .site-footer { padding: 24px 0 40px; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(18,18,20,0.9); }
+  .footer-brand .brand-name { font-weight: 700; }
+  .footer-brand .brand-name-accent { color: var(--green); }
+  .footer-links a { color: var(--muted); text-decoration: none; margin-left: 18px; }
+  .footer-links a:hover { color: var(--white); }
+  .partner-logos { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding-top: 10px; }
+  .partner-logos img { height: 36px; border-radius: 6px; background: rgba(255,255,255,0.06); padding: 6px 10px; border: 1px solid rgba(255,255,255,0.08); filter: grayscale(10%) contrast(1.05); }
+  .marquee-container { overflow: hidden; position: relative; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); margin-top: 16px; }
+  .marquee-content { display: flex; gap: 24px; align-items: center; animation: marquee 24s linear infinite; padding: 16px 0; }
+  .logo-item { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px; border-radius: 10px; }
+  .logo-item img { height: 28px; object-fit: contain; }
+  .logo-label { color: var(--muted); font-weight: 600; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (max-width: 640px) { .hero h1 { font-size: 32px; } .logo-item img { height: 24px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container row between middle">
+      <a href="#" class="brand row middle">
+        <img src="assets/Logo22.jfif" alt="FinaMo logo" class="brand-logo" onerror="this.onerror=null;this.src='assets/Logo22.jfif'" />
+        <div class="brand-text">
+        
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="main-nav">
+        <a href="#about">About</a>
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#team">Team</a>
+        <a href="#impact">Impact</a>
+        <a href="#contact" class="btn btn-primary">Free Health Check</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-media" style="background-image:url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&dpr=1');"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Trusted Financial Operations Partner for MSMEs</h1>
+      <p>Affordable, professional, tech-enabled accounting and compliance for growth-focused businesses.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get Free Financial Health Check</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container grid two">
+      <div>
+        <p>FinaMo is a portfolio venture of 8thGear Hub & Venture Studio, created to solve the widespread challenges Nigerian MSMEs face in bookkeeping, accounting, cashflow management, and compliance.</p>
+        <p>Our purpose is to deliver clarity and momentum through structured financial systems, reliable reporting, and expert guidance.</p>
+        <div class="badges">
+          <span class="badge">Premium yet accessible</span>
+          <span class="badge">Tech-enabled</span>
+          <span class="badge">Compliance-first</span>
+        </div>
+      </div>
+      <div class="about-media">
+        <img src="assets/HubServices.cf53c599545168360163.jpg" alt="finamo Hub Services" />
+      </div>
+    </div>
+  </section>
+
+  <section id="problem" class="section alt">
+    <div class="container">
+      <h2>The Gap We Address</h2>
+      <div class="cards grid three">
+        <div class="card">
+          <h3>Informal Operations</h3>
+          <p>Over 70% have no structured bookkeeping. Only 15–20% keep accurate monthly accounts.</p>
+        </div>
+        <div class="card">
+          <h3>Compliance Risks</h3>
+          <p>Less than 10% are tax compliant. New VAT, TIN, and reporting rules increase penalties and fear.</p>
+        </div>
+        <div class="card">
+          <h3>Finance Access</h3>
+          <p>Poor documentation leads to loan rejection, missed grants, and low investor confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solution" class="section">
+    <div class="container">
+      <h2>How We Help</h2>
+      <p>We operate as a financial operations partner, embedding structured systems, compliance processes, and decision-ready reporting into your business.</p>
+      <div class="cards grid three">
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Bookkeeping & Management Accounting</h3>
+          <p>Monthly records, reconciliation, and reporting that keep you investor-ready.</p>
+        </div>
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Tax Advisory & Compliance</h3>
+          <p>VAT, PAYE, withholding tax, annual returns, and audit support.</p>
+        </div>
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Financial Reporting & Budgeting</h3>
+          <p>Cash flow management, management reports, and cost analysis for decisions.</p>
+        </div>
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Investment & Loan Readiness</h3>
+          <p>Documentation for PFIs, investors, and grant makers.</p>
+        </div>
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Corporate Structuring</h3>
+          <p>CAC documentation, compliance tracking, and governance records.</p>
+        </div>
+        <div class="card icon">
+          <div class="icon-dot"></div>
+          <h3>Digital Accounting Solutions</h3>
+          <p>Setup of Zoho Books, QuickBooks, and Sage tailored to your workflows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section alt">
+    <div class="container">
+      <h2>Service Lines</h2>
+      <div class="grid two">
+        <div class="list">
+          <ul>
+            <li>End-to-end bookkeeping and monthly management reports</li>
+            <li>Tax filings, advisory, and compliance automation</li>
+            <li>Budgeting, cashflow planning, and cost controls</li>
+            <li>Loan and investment readiness documentation</li>
+            <li>Corporate structuring and CAC compliance</li>
+            <li>Cloud accounting setup and migration</li>
+            <li>Financial education clinics and workshops</li>
+          </ul>
+        </div>
+        <div class="services-media">
+          <img src="https://images.pexels.com/photos/3184163/pexels-photo-3184163.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1" alt="Entrepreneurs reviewing finances" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <h2>Pricing</h2>
+      <div class="pricing grid four">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <p class="price">N20,000 – 40,000</p>
+          <ul>
+            <li>Basic bookkeeping</li>
+            <li>Monthly statements</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <h3>Standard</h3>
+          <p class="price">N50,000 – 100,000</p>
+          <ul>
+            <li>Bookkeeping + reconciliation</li>
+            <li>Tax filings</li>
+            <li>Quarterly reports</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Choose Standard</a>
+        </div>
+        <div class="price-card">
+          <h3>Premium</h3>
+          <p class="price">N150,000 – 300,000</p>
+          <ul>
+            <li>Full compliance</li>
+            <li>Budgeting & cashflow</li>
+            <li>Audit support</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Talk to Us</a>
+        </div>
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <p class="price">Custom</p>
+          <ul>
+            <li>Complex operations</li>
+            <li>Dedicated partner team</li>
+            <li>Governance support</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Request Proposal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="section alt">
+    <div class="container">
+     
+    <h2 class="section-title">Our Consulting Partners</h2>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <div class="logo-item">
+                <img src="assets/NASSI.jfif" alt="NASSI">
+                <span class="logo-label">NASSI</span>
+            </div>
+            <div class="logo-item">
+                <img src="assets/NASME.webp" alt="NASME">
+                <span class="logo-label">NASME</span>
+            </div>
+            <div class="logo-item">
+                <img src="assets/Smedan-logo.webp" alt="SMEDAN">
+                <span class="logo-label">SMEDAN</span>
+            </div>
+            <div class="logo-item">
+                <img src="assets/BMO.png" alt="BMO">
+                <span class="logo-label">BMO</span>
+            </div>
+
+            <div class="logo-item">
+                <img src="assets/Wema-Logo.jpg" alt="WEMA BANK">
+                <span class="logo-label">WEMA BANK</span>
+            </div>
+            <div class="logo-item">
+                <img src="assets/FCMB.jfif" alt="FCMB">
+                <span class="logo-label">FCMB</span>
+            </div>
+            <div class="logo-item">
+                <img src="assets/LAPO.png" alt="LAPO">
+                <span class="logo-label">LAPO MFB</span>
+            </div>
+
+            <div class="logo-item"><img src="assets/NASSI.jfif" alt="NASSI"><span class="logo-label">NASSI</span></div>
+            <div class="logo-item"><img src="assets/NASME.webp" alt="NASME"><span class="logo-label">NASME</span></div>
+            <div class="logo-item"><img src="assets/Smedan-logo.webp" alt="SMEDAN"><span class="logo-label">SMEDAN</span></div>
+            <div class="logo-item"><img src="assets/BMO.png" alt="BMO"><span class="logo-label">BMO</span></div>
+            <div class="logo-item"><img src="assets/Wema-Logo.jpg" alt="WEMA BANK"><span class="logo-label">WEMA BANK</span></div>
+            <div class="logo-item"><img src="assets/FCMB.jfif" alt="FCMB"><span class="logo-label">FCMB</span></div>
+            <div class="logo-item"><img src="assets/LAPO.png" alt="LAPO"><span class="logo-label">LAPO MFB</span></div>
+        </div>
+    </div>  
+  </section>
+
+  <section id="impact" class="section">
+    <div class="container grid two">
+      <div>
+        <h2>Expected Impact</h2>
+        <ul class="checklist">
+          <li>Improved loan readiness and access to finance</li>
+          <li>Growth in client revenue and profitability</li>
+          <li>Higher tax compliance and reduced penalties</li>
+          <li>Stronger governance and sustainability</li>
+          <li>Job creation in accounting services</li>
+        </ul>
+      </div>
+      <div class="impact-media">
+        <img src="https://images.pexels.com/photos/1181353/pexels-photo-1181353.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=1" alt="Business team meeting" />
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section cta">
+    <div class="container">
+      <h2>Start with a Free Financial Health Check</h2>
+      <p>Enter your details and a partner will contact you within 24 hours.</p>
+      <form class="contact-form" action="#" method="post" onsubmit="return submitLead(event)">
+        <div class="grid two">
+          <input type="text" name="name" placeholder="Full name" required />
+          <input type="email" name="email" placeholder="Email address" required />
+        </div>
+        <div class="grid two">
+          <input type="tel" name="phone" placeholder="Phone number" />
+          <input type="text" name="company" placeholder="Company name" />
+        </div>
+        <textarea name="message" rows="4" placeholder="What support do you need?"></textarea>
+        <button type="submit" class="btn btn-primary">Request Health Check</button>
+      </form>
+      <p class="site-link">Visit <a href="https://www.finamo.biz" target="_blank" rel="noopener">www.finamo.biz</a></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container row between">
+      <div class="footer-brand">
+        <span class="brand-name">Fina<span class="brand-name-accent">Mo</span></span>
+        <span class="brand-tagline">Financial Momentum for MSMEs</span>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="container partner-logos">
+      <img src="assets/BMO.png" alt="BMO" loading="lazy" />
+      <img src="assets/NASSI.jfif" alt="NASSI" loading="lazy" />
+      <img src="assets/NASME.webp" alt="NASME" loading="lazy" />
+      <img src="assets/Smedan-logo.webp" alt="SMEDAN" loading="lazy" />
+      <img src="assets/Wema-Logo.jpg" alt="Wema Bank" loading="lazy" />
+       <img src="assets/8THGEAR.png" alt="8thGear" loading="lazy" />
+        
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+<style>
+</style>
+</html>
